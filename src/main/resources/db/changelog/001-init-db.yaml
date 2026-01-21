@@ -1,0 +1,155 @@
+databaseChangeLog:
+  # 1. Таблица адресов
+  - changeSet:
+      id: 001-create-addresses-table
+      author: m3mpm
+      changes:
+        - createTable:
+            tableName: addresses
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: country
+                  type: VARCHAR(100)
+              - column:
+                  name: city
+                  type: VARCHAR(100)
+              - column:
+                  name: street
+                  type: VARCHAR(255)
+  # 2. Таблица изображений
+  - changeSet:
+      id: 002-create-images-table
+      author: m3mpm
+      changes:
+        - createTable:
+            tableName: images
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: image
+                  type: BYTEA
+  # 3. Таблица поставщиков
+  - changeSet:
+      id: 003-create-suppliers-table
+      author: m3mpm
+      changes:
+        - createTable:
+            tableName: suppliers
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: VARCHAR(20)
+              - column:
+                  name: address_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_supplier_address
+                    referencedTableName: addresses
+                    referencedColumnNames: id
+
+  # 4. Таблица клиентов
+  - changeSet:
+      id: 004-create-clients-table
+      author: m3mpm
+      changes:
+        - createTable:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: client_name
+                  type: VARCHAR(100)
+              - column:
+                  name: client_surname
+                  type: VARCHAR(100)
+              - column:
+                  name: birthday
+                  type: DATE
+              - column:
+                  name: gender
+                  type: VARCHAR(10)
+              - column:
+                  name: registration_date
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: address_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_client_address
+                    referencedTableName: addresses
+                    referencedColumnNames: id
+
+  # 5. Таблица товаров
+  - changeSet:
+      id: 005-create-products-table
+      author: m3mpm
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category
+                  type: VARCHAR(100)
+              - column:
+                  name: price
+                  type: DECIMAL(19, 2)
+              - column:
+                  name: available_stock
+                  type: INTEGER
+                  defaultValueNumeric: 0
+              - column:
+                  name: last_update_date
+                  type: TIMESTAMP
+              - column:
+                  name: supplier_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_product_supplier
+                    referencedTableName: suppliers
+                    referencedColumnNames: id
+              - column:
+                  name: image_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_product_images
+                    referencedTableName: images
+                    referencedColumnNames: id

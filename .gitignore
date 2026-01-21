@@ -38,3 +38,6 @@ out/
 .idea/
 NOTES
 .DS_Store
+
+### env ###
+.env
