@@ -1,4 +1,8 @@
 spring:
+# используется для загрузки переменных окружения из внешнего файла .env
+# вместо implementation("me.paulschwarz:springboot4-dotenv:$dotenvVersion")
+#  config:
+#    import: "optional:file:.env[.properties]"
   application:
     name: ${APP_NAME:store-service}
 
