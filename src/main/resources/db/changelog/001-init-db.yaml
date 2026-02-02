@@ -43,7 +43,7 @@ databaseChangeLog:
 
   # 3. Таблица клиентов
   - changeSet:
-      id: 004-create-clients-table
+      id: 003-create-clients-table
       author: m3mpm
       changes:
         - createTable:
@@ -83,7 +83,7 @@ databaseChangeLog:
 
   # 4. Таблица поставщиков
   - changeSet:
-      id: 003-create-suppliers-table
+      id: 004-create-suppliers-table
       author: m3mpm
       changes:
         - createTable:
