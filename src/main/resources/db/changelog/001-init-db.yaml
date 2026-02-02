@@ -22,6 +22,7 @@ databaseChangeLog:
               - column:
                   name: street
                   type: VARCHAR(255)
+
   # 2. Таблица изображений
   - changeSet:
       id: 002-create-images-table
@@ -39,37 +40,8 @@ databaseChangeLog:
               - column:
                   name: image
                   type: BYTEA
-  # 3. Таблица поставщиков
-  - changeSet:
-      id: 003-create-suppliers-table
-      author: m3mpm
-      changes:
-        - createTable:
-            tableName: suppliers
-            columns:
-              - column:
-                  name: id
-                  type: UUID
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: name
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: phone_number
-                  type: VARCHAR(20)
-              - column:
-                  name: address_id
-                  type: UUID
-                  constraints:
-                    foreignKeyName: fk_supplier_address
-                    referencedTableName: addresses
-                    referencedColumnNames: id
 
-  # 4. Таблица клиентов
+  # 3. Таблица клиентов
   - changeSet:
       id: 004-create-clients-table
       author: m3mpm
@@ -103,7 +75,41 @@ databaseChangeLog:
                   name: address_id
                   type: UUID
                   constraints:
+                    nullable: true
+                    unique: true # ГАРАНТИРУЕТ One-to-One: Чтобы один адрес не достался двум клиентам
                     foreignKeyName: fk_client_address
+                    referencedTableName: addresses
+                    referencedColumnNames: id
+
+  # 4. Таблица поставщиков
+  - changeSet:
+      id: 003-create-suppliers-table
+      author: m3mpm
+      changes:
+        - createTable:
+            tableName: suppliers
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: VARCHAR(20)
+              - column:
+                  name: address_id
+                  type: UUID
+                  constraints:
+                    nullable: true
+                    unique: true # ГАРАНТИРУЕТ One-to-One: Чтобы один адрес не достался двум клиентам
+                    foreignKeyName: fk_supplier_address
                     referencedTableName: addresses
                     referencedColumnNames: id
 
@@ -131,7 +137,7 @@ databaseChangeLog:
                   type: VARCHAR(100)
               - column:
                   name: price
-                  type: DECIMAL(19, 2)
+                  type: DECIMAL(10, 2)
               - column:
                   name: available_stock
                   type: INTEGER
@@ -143,6 +149,7 @@ databaseChangeLog:
                   name: supplier_id
                   type: UUID
                   constraints:
+                    nullable: true
                     foreignKeyName: fk_product_supplier
                     referencedTableName: suppliers
                     referencedColumnNames: id
@@ -150,6 +157,8 @@ databaseChangeLog:
                   name: image_id
                   type: UUID
                   constraints:
+                    nullable: true
+                    unique: true # ГАРАНТИРУЕТ One-to-One: Чтобы один адрес не достался двум клиентам
                     foreignKeyName: fk_product_images
                     referencedTableName: images
                     referencedColumnNames: id
