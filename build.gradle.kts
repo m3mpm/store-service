@@ -9,6 +9,7 @@ val mapstructVersion = "1.6.3"
 val springDocVersion = "2.8.0"
 val lombokMapstructBindingVersion = "0.2.0"
 val dotenvVersion = "5.1.0"
+val uuidCreatorVersion = "6.1.1"
 
 group = "org.m3mpm"
 version = "0.0.1-SNAPSHOT"
@@ -71,11 +72,15 @@ dependencies {
 
     // not work
     // Source: https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java
-//    implementation("io.github.cdimascio:dotenv-java:3.2.0")
+    //    implementation("io.github.cdimascio:dotenv-java:3.2.0")
 
     // not work
     // Source: https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-kotlin
-//    runtimeOnly("io.github.cdimascio:dotenv-kotlin:6.5.1")
+    //    runtimeOnly("io.github.cdimascio:dotenv-kotlin:6.5.1")
+
+    // to create uuid v.7 for tests
+    // Source: https://mvnrepository.com/artifact/com.github.f4b6a3/uuid-creator
+    implementation("com.github.f4b6a3:uuid-creator:$uuidCreatorVersion")
 }
 
 tasks.withType<Test> {
@@ -84,14 +89,6 @@ tasks.withType<Test> {
 
 tasks.withType<JavaCompile> {
     options.compilerArgs.addAll(listOf(
-        /*Генерирует мапперы как Spring-бины (@Component), чтобы их можно было внедрять через @Autowired
-         Если убрать эту строчку, то при создании мапперов придется в каждом интерфейсе вручную писать:
-         @Mapper(componentModel = "spring").*/
-        "-Amapstruct.defaultComponentModel=spring",
-
-        // Прерывает сборку, если есть несопоставленные поля — предотвращает "тихие" ошибки маппинга
-        "-Amapstruct.unmappedTargetPolicy=ERROR",
-
 //        "-Xlint:all,-processing" // Включает все проверки компилятора на чистоту кода
 
     ))
