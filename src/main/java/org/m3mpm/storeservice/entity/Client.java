@@ -38,6 +38,7 @@ public class Client {
     @Column(name = "gender")
     private Gender gender;
 
+    // todo: Подумать возможно нужно использовать @CreationTimestamp
     @Column(name = "registration_date", updatable = false, nullable = false)
     private LocalDateTime registrationDate;
 
