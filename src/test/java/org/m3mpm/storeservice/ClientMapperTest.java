@@ -130,19 +130,21 @@ public class ClientMapperTest {
 
         clientMapper.updateEntity(updateDto, existingClient);
 
-        // ID & Дата регистрации не изменились
+        // ID & Дата регистрации не должны измениться
         assertThat(existingClient.getId()).isEqualTo(originalClientId);
         assertThat(existingClient.getRegistrationDate()).isEqualTo(originalRegDate);
 
+        // Другие поля Client обновились
         assertThat(existingClient.getClientName()).isEqualTo(updateDto.clientName());
         assertThat(existingClient.getClientSurname()).isEqualTo(updateDto.clientSurname());
         assertThat(existingClient.getBirthday()).isEqualTo(updateDto.birthday());
         assertThat(existingClient.getGender()).isEqualTo(updateDto.gender());
 
         // Проверка работы AddressMapper внутри ClientMapper
-        // ID не изменилось
+        // ID не должен измениться
         assertThat(existingClient.getAddress().getId()).isEqualTo(originalAddressId);
 
+        // Другие поля Address обновились
         assertThat(existingClient.getAddress().getCountry()).isEqualTo(addressDto.getCountry());
         assertThat(existingClient.getAddress().getCity()).isEqualTo(addressDto.getCity());
         assertThat(existingClient.getAddress().getStreet()).isEqualTo(addressDto.getStreet());
