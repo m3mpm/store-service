@@ -32,14 +32,16 @@ public class Address {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Address address)) return false;
-        return Objects.equals(country, address.getCountry()) && Objects.equals(city, address.getCity()) && Objects.equals(street, address.getStreet());
+        if (this == o) return true;
+        if (!(o instanceof Address other)) return false;
+        return getId() != null && Objects.equals(getId(), other.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(country, city, street);
+        return Objects.hashCode(id);
     }
+
 }
 
 

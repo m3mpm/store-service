@@ -48,13 +48,14 @@ public class Client {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Client client)) return false;
-        return Objects.equals(clientName, client.getClientName()) && Objects.equals(clientSurname, client.getClientSurname()) && Objects.equals(birthday, client.getBirthday()) && gender == client.getGender() && Objects.equals(registrationDate, client.getRegistrationDate());
+        if (this == o) return true;
+        if (!(o instanceof Client other)) return false;
+        return Objects.equals(getId(), other.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(clientName, clientSurname, birthday, gender, registrationDate);
+        return Objects.hashCode(id);
     }
 
 }

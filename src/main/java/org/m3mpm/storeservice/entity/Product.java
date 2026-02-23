@@ -56,12 +56,14 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Product product)) return false;
-        return Objects.equals(name, product.getName()) && category == product.getCategory();
+        if (this == o) return true;
+        if (!(o instanceof Product other)) return false;
+        return Objects.equals(getId(), other.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, category);
+        return Objects.hashCode(id);
     }
+
 }

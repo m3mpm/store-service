@@ -46,13 +46,14 @@ public class Supplier {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Supplier supplier)) return false;
-        return Objects.equals(name, supplier.getName()) && Objects.equals(phoneNumber, supplier.getPhoneNumber());
+        if (this == o) return true;
+        if (!(o instanceof Supplier other)) return false;
+        return Objects.equals(getId(), other.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, phoneNumber);
+        return Objects.hashCode(id);
     }
 
 }
