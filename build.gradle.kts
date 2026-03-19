@@ -62,9 +62,12 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // Добавлено для Lombok в тестах
+    // Тесты Lombok
     testCompileOnly("org.projectlombok:lombok")
     testAnnotationProcessor("org.projectlombok:lombok")
+
+    // Тесты MapStruct
+    testAnnotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
 
     // env file
     // Source: https://mvnrepository.com/artifact/me.paulschwarz/springboot4-dotenv
