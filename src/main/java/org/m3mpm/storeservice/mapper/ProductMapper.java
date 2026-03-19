@@ -10,7 +10,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(config = CentralMapperConfig.class)
 public interface ProductMapper {
 
-    @Mapping( target = "supplierId", source = "supplier.id")
+    @Mapping(target = "supplierId", source = "supplier.id")
     @Mapping(target = "imageId", source = "image.id")
     ProductDto toDto(Product product);
 
