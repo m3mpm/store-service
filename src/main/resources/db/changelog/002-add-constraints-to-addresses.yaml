@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-add-not-null-to-addresses
+      author: m3mpm
+      changes:
+        - addNotNullConstraint:
+            tableName: addresses
+            columnName: country
+            columnDataType: VARCHAR(100)
+        - addNotNullConstraint:
+            tableName: addresses
+            columnName: city
+            columnDataType: VARCHAR(100)
+        - addNotNullConstraint:
+            tableName: addresses
+            columnName: street
+            columnDataType: VARCHAR(255)
