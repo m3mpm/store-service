@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(config = CentralMapperConfig.class)
 public interface ProductMapper {
 
@@ -23,4 +25,8 @@ public interface ProductMapper {
     @Mapping(target = "supplier", ignore = true)
     @Mapping(target = "image", ignore = true)
     void updateEntity(ProductDto productDto, @MappingTarget Product product);
+
+    List<ProductDto> toDtoList(List<Product> productList);
+
+    List<Product> toEntityList(List<ProductDto> productDtoList);
 }

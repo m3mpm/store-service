@@ -38,11 +38,12 @@ public class Supplier {
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Product> products;
 
-    // Вспомогательный метод, чтобы можно было добавлять продукт
-    public void addProduct(Product product) {
-        this.products.add(product);   // Чтобы supplier.getProducts() сразу видел новый товар
-        product.setSupplier(this);    // Чтобы Hibernate понял, какой ID вставить в таблицу products
-    }
+    // todo Понять для чего нужен этот метод
+//    // Вспомогательный метод, чтобы можно было добавлять продукт
+//    public void addProduct(Product product) {
+//        this.products.add(product);   // Чтобы supplier.getProducts() сразу видел новый товар
+//        product.setSupplier(this);    // Чтобы Hibernate понял, какой ID вставить в таблицу products
+//    }
 
     @Override
     public boolean equals(Object o) {
