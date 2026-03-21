@@ -17,7 +17,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProductMapperTest {
+public class ProductMapperTests {
 
     // Получаем экземпляр маппера через фабрику MapStruct для Unit-теста
     private final ProductMapper mapper = Mappers.getMapper(ProductMapper.class);

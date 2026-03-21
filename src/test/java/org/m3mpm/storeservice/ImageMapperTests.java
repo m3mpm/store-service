@@ -12,7 +12,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class ImageMapperTest {
+public class ImageMapperTests {
 
     // Получаем экземпляр маппера через фабрику MapStruct
     private final ImageMapper mapper = Mappers.getMapper(ImageMapper.class);

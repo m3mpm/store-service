@@ -8,9 +8,7 @@ import org.m3mpm.storeservice.dto.AddressDto;
 import org.m3mpm.storeservice.dto.ClientDto;
 import org.m3mpm.storeservice.entity.Address;
 import org.m3mpm.storeservice.entity.Client;
-import org.m3mpm.storeservice.mapper.AddressMapperImpl;
 import org.m3mpm.storeservice.mapper.ClientMapper;
-import org.m3mpm.storeservice.mapper.ClientMapperImpl;
 import org.m3mpm.storeservice.type.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,8 +23,8 @@ import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = ClientMapperTest.TestConfig.class) // Указываем наш внутренний класс конфигурации
-public class ClientMapperTest {
+@ContextConfiguration(classes = ClientMapperTests.TestConfig.class) // Указываем наш внутренний класс конфигурации
+public class ClientMapperTests {
 
     @Configuration
     @ComponentScan(basePackages = "org.m3mpm.storeservice.mapper") // Spring просканирует пакет и найдет ClientMapperImpl и AddressMapperImpl

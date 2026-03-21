@@ -29,8 +29,8 @@ import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = SupplierMapperTest.TestConfig.class)
-public class SupplierMapperTest {
+@ContextConfiguration(classes = SupplierMapperTests.TestConfig.class)
+public class SupplierMapperTests {
 
     @Configuration
     @ComponentScan(basePackages = "org.m3mpm.storeservice.mapper")

@@ -14,7 +14,7 @@ import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
-public class AddressMapperTest {
+public class AddressMapperTests {
 
     // Получаем экземпляр маппера через фабрику MapStruct
     private final AddressMapper mapper = Mappers.getMapper(AddressMapper.class);
