@@ -13,6 +13,8 @@ import org.m3mpm.storeservice.mapper.ClientMapper;
 import org.m3mpm.storeservice.mapper.ClientMapperImpl;
 import org.m3mpm.storeservice.type.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -23,10 +25,12 @@ import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {
-        ClientMapperImpl.class,
-        AddressMapperImpl.class})
+@ContextConfiguration(classes = ClientMapperTest.TestConfig.class) // Указываем наш внутренний класс конфигурации
 public class ClientMapperTest {
+
+    @Configuration
+    @ComponentScan(basePackages = "org.m3mpm.storeservice.mapper") // Spring просканирует пакет и найдет ClientMapperImpl и AddressMapperImpl
+    static class TestConfig {}
 
     @Autowired
     private ClientMapper clientMapper;
@@ -35,12 +39,12 @@ public class ClientMapperTest {
     @DisplayName("Маппинг из Entity в DTO: все поля должны совпадать, включая вложенный адрес")
     void shouldMapEntityToDto() {
 
-        UUID idAddress = UUID.randomUUID();
+        UUID idAddress = UUID.randomUUID(); // UUID v4
         Address address = new Address();
         address.setId(idAddress);
         address.setCity("Moscow");
 
-        UUID idClient = UUID.randomUUID();
+        UUID idClient = UUID.randomUUID(); // UUID v4
         LocalDateTime regDate = LocalDateTime.now();
 
         Client entity = new Client()
@@ -68,7 +72,7 @@ public class ClientMapperTest {
     @Test
     @DisplayName("Маппинг DTO в Entity: игнорирование ID и даты регистрации")
     void shouldMapDtoToEntityAndIgnoreIdAndRegistrationDate() {
-        UUID clientDtoId = UuidCreator.getTimeOrderedEpoch();
+        UUID clientDtoId = UuidCreator.getTimeOrderedEpoch(); // UUID v7
         ClientDto dto = new ClientDto(
                 clientDtoId,
                 "Anna",

@@ -20,7 +20,7 @@ public class ImageMapperTest {
     @Test
     @DisplayName("Должен корректно маппить Image в ImageDto")
     void shouldMapEntityToDto() {
-        UUID randomId = UUID.randomUUID();
+        UUID randomId = UUID.randomUUID(); // UUID v4
         byte[] imageData = {1, 2, 3, 4, 5};
         Image image = new Image()
                 .setId(randomId)
@@ -36,7 +36,7 @@ public class ImageMapperTest {
     @Test
     @DisplayName("Должен создавать сущность из DTO, игнорируя ID")
     void shouldMapDtoToEntityAndIgnoreId() {
-        UUID dtoId = UuidCreator.getTimeOrderedEpoch();
+        UUID dtoId = UuidCreator.getTimeOrderedEpoch(); // UUID v7
         byte[] imageData = {10, 20, 30};
         ImageDto dto = new ImageDto()
                 .setId(dtoId)

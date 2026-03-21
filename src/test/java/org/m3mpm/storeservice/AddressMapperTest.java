@@ -22,9 +22,9 @@ public class AddressMapperTest {
     @Test
     @DisplayName("Маппинг из Entity в DTO: все поля должны совпадать")
     void shouldMapEntityToDto() {
-        UUID randomID = UUID.randomUUID();
+        UUID addressId = UUID.randomUUID(); // UUID v4
         Address entity = new Address().
-                setId(randomID).
+                setId(addressId).
                 setCountry("Russia").
                 setCity("Moscow").
                 setStreet("Lenina");
@@ -41,9 +41,9 @@ public class AddressMapperTest {
     @Test
     @DisplayName("Маппинг из DTO в Entity: ID должен быть проигнорирован")
     void shouldMapDtoToEntityAndIgnoreId(){
-        UUID randomID = UuidCreator.getTimeOrderedEpoch();
+        UUID addressId = UuidCreator.getTimeOrderedEpoch(); // UUID v7
         AddressDto dto = new AddressDto().
-                setId(randomID).
+                setId(addressId).
                 setCountry("Russia").setCity("SPb").
                 setStreet("Nevsky");
 
