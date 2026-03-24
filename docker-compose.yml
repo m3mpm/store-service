@@ -12,7 +12,7 @@ services:
     ports:
       - "${DB_PORT}:5432"
     volumes:
-      - store_db:/var/lib/postgresql/18/data
+      - store_db:/var/lib/postgresql
 
 volumes:
   store_db:
