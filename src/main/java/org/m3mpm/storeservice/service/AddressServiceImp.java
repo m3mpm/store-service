@@ -32,9 +32,9 @@ public class AddressServiceImp implements AddressService{
     @Override
     @Transactional(readOnly = true)
     public List<AddressDto> getAll() {
-        List<Address> listOfaddresses = repository.findAll();
+        List<Address> listOfAddresses = repository.findAll();
 
-        return mapper.toDtoList(listOfaddresses);
+        return mapper.toDtoList(listOfAddresses);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class AddressServiceImp implements AddressService{
     @Transactional
     public void delete(UUID id) {
         if(!repository.existsById(id)){
-            throw new EntityNotFoundException("Delete: Address not found");
+            throw new EntityNotFoundException("Delete: Address not found with id - " + id);
         }
 
         repository.deleteById(id);
