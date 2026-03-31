@@ -1,5 +1,6 @@
 package org.m3mpm.storeservice.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.m3mpm.storeservice.dto.AddressDto;
 import org.m3mpm.storeservice.service.AddressService;
@@ -18,7 +19,7 @@ public class AddressController {
     private final AddressService addressService;
 
     @PostMapping("/add")
-    public ResponseEntity<AddressDto> save(@RequestBody AddressDto addressDto){
+    public ResponseEntity<AddressDto> save(@Valid @RequestBody AddressDto addressDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(addressService.save(addressDto));
     }
 
