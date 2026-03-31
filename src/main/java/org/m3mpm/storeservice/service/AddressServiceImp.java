@@ -31,7 +31,7 @@ public class AddressServiceImp implements AddressService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<AddressDto> getAll() {
+    public List<AddressDto> findAll() {
         List<Address> listOfAddresses = repository.findAll();
 
         return mapper.toDtoList(listOfAddresses);
@@ -39,7 +39,7 @@ public class AddressServiceImp implements AddressService{
 
     @Override
     @Transactional(readOnly = true)
-    public AddressDto get(UUID id) {
+    public AddressDto findById(UUID id) {
         return repository.findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("Get: Address not found with id - " + id));

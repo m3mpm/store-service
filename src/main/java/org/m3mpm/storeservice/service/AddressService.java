@@ -9,9 +9,9 @@ public interface AddressService {
 
     AddressDto save(AddressDto addressDto);
 
-    List<AddressDto> getAll();
+    List<AddressDto> findAll();
 
-    AddressDto get(UUID id);
+    AddressDto findById(UUID id);
 
     void delete(UUID id);
 
