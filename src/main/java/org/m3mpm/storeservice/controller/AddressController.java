@@ -26,7 +26,7 @@ public class AddressController {
         return ResponseEntity.status(HttpStatus.CREATED).body(addressService.create(addressDto));
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<AddressDto>> findAll(){
         return ResponseEntity.status(HttpStatus.OK).body(addressService.findAll());
     }
@@ -37,7 +37,7 @@ public class AddressController {
     }
 
     @PutMapping("/{id}") // PUT - Полное обновление (клиент должен прислать все поля)
-    public ResponseEntity<AddressDto> update(@PathVariable("id")UUID id, @Valid @RequestBody AddressDto addressDto){
+    public ResponseEntity<AddressDto> update(@PathVariable("id")UUID id, @Validated(OnCreate.class) @RequestBody AddressDto addressDto){
         return ResponseEntity.status(HttpStatus.OK).body(addressService.update(id,addressDto));
     }
 
