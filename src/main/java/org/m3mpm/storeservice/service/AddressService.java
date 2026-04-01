@@ -15,6 +15,8 @@ public interface AddressService {
 
     AddressDto update(UUID id, AddressDto addressDto);
 
+    AddressDto patch(UUID id, AddressDto addressDto);
+
     void delete(UUID id);
 
 }

@@ -60,6 +60,16 @@ public class AddressServiceImp implements AddressService{
     }
 
     @Override
+    public AddressDto patch(UUID id, AddressDto addressDto) {
+        Address address = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Patch: Address not found with id - " + id));
+
+        mapper.updateEntity(addressDto, address);
+
+        return mapper.toDto(repository.save(address));
+    }
+
+    @Override
     @Transactional
     public void delete(UUID id) {
         if(!repository.existsById(id)){
