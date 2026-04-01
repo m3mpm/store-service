@@ -21,7 +21,7 @@ public class AddressServiceImp implements AddressService{
 
     @Override
     @Transactional
-    public AddressDto save(AddressDto addressDto) {
+    public AddressDto create(AddressDto addressDto) {
         Address address = mapper.toEntity(addressDto);
 
         Address savedAddress = repository.save(address);
@@ -45,15 +45,6 @@ public class AddressServiceImp implements AddressService{
                 .orElseThrow(() -> new EntityNotFoundException("Get: Address not found with id - " + id));
     }
 
-    @Override
-    @Transactional
-    public void delete(UUID id) {
-        if(!repository.existsById(id)){
-            throw new EntityNotFoundException("Delete: Address not found with id - " + id);
-        }
-
-        repository.deleteById(id);
-    }
 
     @Override
     @Transactional
@@ -66,5 +57,15 @@ public class AddressServiceImp implements AddressService{
         Address updatedAddress = repository.save(address);
 
         return mapper.toDto(updatedAddress);
+    }
+
+    @Override
+    @Transactional
+    public void delete(UUID id) {
+        if(!repository.existsById(id)){
+            throw new EntityNotFoundException("Delete: Address not found with id - " + id);
+        }
+
+        repository.deleteById(id);
     }
 }

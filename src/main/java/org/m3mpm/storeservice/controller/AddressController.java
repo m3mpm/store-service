@@ -18,9 +18,9 @@ public class AddressController {
 
     private final AddressService addressService;
 
-    @PostMapping("/add")
-    public ResponseEntity<AddressDto> save(@Valid @RequestBody AddressDto addressDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(addressService.save(addressDto));
+    @PostMapping
+    public ResponseEntity<AddressDto> create(@Valid @RequestBody AddressDto addressDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(addressService.create(addressDto));
     }
 
     @GetMapping("")
@@ -32,4 +32,16 @@ public class AddressController {
     public ResponseEntity<AddressDto> findById(@PathVariable("id")UUID id){
         return ResponseEntity.status(HttpStatus.OK).body(addressService.findById(id));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AddressDto> update(@PathVariable("id")UUID id, @Valid @RequestBody AddressDto addressDto){
+        return ResponseEntity.status(HttpStatus.OK).body(addressService.update(id,addressDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        addressService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

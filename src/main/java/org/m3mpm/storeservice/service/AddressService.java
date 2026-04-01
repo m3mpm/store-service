@@ -7,14 +7,14 @@ import java.util.UUID;
 
 public interface AddressService {
 
-    AddressDto save(AddressDto addressDto);
+    AddressDto create(AddressDto addressDto);
 
     List<AddressDto> findAll();
 
     AddressDto findById(UUID id);
 
-    void delete(UUID id);
-
     AddressDto update(UUID id, AddressDto addressDto);
+
+    void delete(UUID id);
 
 }
