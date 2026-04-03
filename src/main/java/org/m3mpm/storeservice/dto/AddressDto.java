@@ -20,14 +20,14 @@ public class AddressDto {
     private UUID id;
 
     @Schema(example = "Россия")
-    @NotBlank(message = "City cannot be empty", groups = OnCreate.class)
-    @Size(max = 100, message = "City name is too long", groups = {OnCreate.class, OnUpdate.class})
-    private String city;
-
-    @Schema(example = "Москва")
     @NotBlank(message = "Country cannot be empty", groups = OnCreate.class)
     @Size(max = 100, message = "Country name is too long", groups = {OnCreate.class, OnUpdate.class})
     private String country;
+
+    @Schema(example = "Москва")
+    @NotBlank(message = "City cannot be empty", groups = OnCreate.class)
+    @Size(max = 100, message = "City name is too long", groups = {OnCreate.class, OnUpdate.class})
+    private String city;
 
     @Schema(example = "Ленина, 10")
     @NotBlank(message = "Street cannot be empty", groups = OnCreate.class)
