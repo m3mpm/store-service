@@ -34,11 +34,10 @@ public class Supplier {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "supplier",cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<Product> products;
 
-    // todo Понять для чего нужен этот метод
+    // todo Понять для чего нужен этот метод ???
 //    // Вспомогательный метод, чтобы можно было добавлять продукт
 //    public void addProduct(Product product) {
 //        this.products.add(product);   // Чтобы supplier.getProducts() сразу видел новый товар

@@ -3,6 +3,7 @@ package org.m3mpm.storeservice.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 import org.m3mpm.storeservice.type.Gender;
 
@@ -38,7 +39,7 @@ public class Client {
     @Column(name = "gender")
     private Gender gender;
 
-    // todo: Подумать возможно нужно использовать @CreationTimestamp
+    @CreationTimestamp
     @Column(name = "registration_date", updatable = false, nullable = false)
     private LocalDateTime registrationDate;
 

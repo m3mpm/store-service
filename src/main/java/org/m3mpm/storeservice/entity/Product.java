@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 import org.m3mpm.storeservice.type.ProductCategory;
 
@@ -39,13 +40,14 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
+    // todo Нужно где-то проверять, чтобы не ушло в минус значение....
     @Column(name = "available_stock")
     private Integer availableStock;
 
+    @UpdateTimestamp
     @Column(name = "last_update_date")
     private LocalDateTime lastUpdateDate;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id", referencedColumnName = "id", nullable = true)
     private Supplier supplier;
