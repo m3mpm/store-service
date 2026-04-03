@@ -23,6 +23,13 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
+springdoc:
+  swagger-ui:
+    path: /swagger/index.html # Меняем /swagger-ui/index.html(по умолчанию) на /swagger/index.html
+    display-operation-id: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+
 #logging:
 #  level:
 #    liquibase: DEBUG
