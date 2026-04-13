@@ -32,9 +32,9 @@ public class AddressServiceImp implements AddressService{
     @Override
     @Transactional(readOnly = true)
     public List<AddressDto> findAll() {
-        List<Address> listOfAddresses = repository.findAll();
+        List<Address> list = repository.findAll();
 
-        return mapper.toDtoList(listOfAddresses);
+        return mapper.toDtoList(list);
     }
 
     @Override

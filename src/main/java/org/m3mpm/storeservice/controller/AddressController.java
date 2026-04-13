@@ -22,41 +22,41 @@ import java.util.UUID;
 @Tag(name = "Адреса", description = "Управление адресами клиентов и поставщиков") // Группа в Swagger
 public class AddressController {
 
-    private final AddressService addressService;
+    private final AddressService service;
 
     @Operation(summary = "Создать новый адрес", description = "Позволяет сохранить адрес в базе данных")
     @ApiResponse(responseCode = "201", description = "Адрес успешно создан")
     @ApiResponse(responseCode = "400", description = "Ошибка валидации данных")
     @PostMapping
     public ResponseEntity<AddressDto> create(@Validated(OnCreate.class) @RequestBody AddressDto addressDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(addressService.create(addressDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(addressDto));
     }
 
     @Operation(summary = "Получить все адреса")
     @GetMapping
     public ResponseEntity<List<AddressDto>> findAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(addressService.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
     @Operation(summary = "Найти адрес по ID")
     @ApiResponse(responseCode = "404", description = "Адрес с таким ID не найден")
     @GetMapping("/{id}")
     public ResponseEntity<AddressDto> findById(@PathVariable("id")UUID id){
-        return ResponseEntity.status(HttpStatus.OK).body(addressService.findById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
     @Operation(summary = "Полное обновление адреса (PUT)")
     @ApiResponse(responseCode = "404", description = "Адрес с таким ID не найден")
     @PutMapping("/{id}") // PUT - Полное обновление (клиент должен прислать все поля)
     public ResponseEntity<AddressDto> update(@PathVariable("id")UUID id, @Validated(OnCreate.class) @RequestBody AddressDto addressDto){
-        return ResponseEntity.status(HttpStatus.OK).body(addressService.update(id,addressDto));
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(id,addressDto));
     }
 
     @Operation(summary = "Частичное обновление адреса (PATCH)")
     @ApiResponse(responseCode = "404", description = "Адрес с таким ID не найден")
     @PatchMapping("/{id}") // PATCH - Частичное обновление (клиент может прислать только одно поле)
     public ResponseEntity<AddressDto> patch(@PathVariable UUID id, @Validated(OnUpdate.class) @RequestBody AddressDto dto){
-        return ResponseEntity.status(HttpStatus.OK).body(addressService.patch(id, dto));
+        return ResponseEntity.status(HttpStatus.OK).body(service.patch(id, dto));
     }
 
     @Operation(summary = "Удалить адрес")
@@ -64,7 +64,7 @@ public class AddressController {
     @ApiResponse(responseCode = "404", description = "Адрес с таким ID не найден")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        addressService.delete(id);
+        service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
