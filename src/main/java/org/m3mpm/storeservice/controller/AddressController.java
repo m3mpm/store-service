@@ -48,7 +48,7 @@ public class AddressController {
     @Operation(summary = "Полное обновление адреса (PUT)")
     @ApiResponse(responseCode = "404", description = "Адрес с таким ID не найден")
     @PutMapping("/{id}") // PUT - Полное обновление (клиент должен прислать все поля)
-    public ResponseEntity<AddressDto> update(@PathVariable("id")UUID id, @Validated(OnCreate.class) @RequestBody AddressDto addressDto){
+    public ResponseEntity<AddressDto> update(@PathVariable("id")UUID id, @Validated(OnUpdate.class) @RequestBody AddressDto addressDto){
         return ResponseEntity.status(HttpStatus.OK).body(service.update(id,addressDto));
     }
 

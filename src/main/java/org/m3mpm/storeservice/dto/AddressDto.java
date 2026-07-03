@@ -2,6 +2,7 @@ package org.m3mpm.storeservice.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class AddressDto {
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "550e8400-e29b-41d4-a716-446655440000")
+    @Null(groups = OnCreate.class, message = "ID must be null when creating a new resource")
     private UUID id;
 
     @Schema(example = "Россия")

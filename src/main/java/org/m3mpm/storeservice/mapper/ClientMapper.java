@@ -18,5 +18,6 @@ public interface ClientMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "registrationDate", ignore = true) // todo: Возможно не нужно будет. Подумать где нужно будет реализовать
+    @Mapping(target = "address", qualifiedByName = "standardUpdate")
     void updateEntity(ClientDto clientDto, @MappingTarget Client client);
 }

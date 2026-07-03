@@ -1,5 +1,6 @@
 package org.m3mpm.storeservice.service;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.m3mpm.storeservice.dto.AddressDto;
 import org.m3mpm.storeservice.entity.Address;
@@ -54,19 +55,18 @@ public class AddressServiceImp implements AddressService{
 
         mapper.updateEntity(addressDto, address);
 
-        Address updatedAddress = repository.save(address);
-
-        return mapper.toDto(updatedAddress);
+        return mapper.toDto(address);
     }
 
     @Override
+    @Transactional
     public AddressDto patch(UUID id, AddressDto addressDto) {
         Address address = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Patch: Address not found with id - " + id));
 
-        mapper.updateEntity(addressDto, address);
+        mapper.patchEntity(addressDto, address);
 
-        return mapper.toDto(repository.save(address));
+        return mapper.toDto(address);
     }
 
     @Override

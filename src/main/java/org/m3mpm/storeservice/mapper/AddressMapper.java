@@ -15,8 +15,17 @@ public interface AddressMapper {
     @Mapping(target = "id", ignore = true)
     Address toEntity(AddressDto addressDto);
 
-    @Mapping(target = "id", ignore = true)
+    // Используется для PUT (полное обновление: null затрет старое значение)
+    @Named("standardUpdate")
+    @Mapping(target = "id", ignore = true) // Защищаем ID от перезаписи
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
     void updateEntity(AddressDto addressDto, @MappingTarget Address address);
+
+    // Используется для PATCH (частичное обновление: null игнорируется)
+    @Named("standardPatch")
+    @Mapping(target = "id", ignore = true) // Защищаем ID от перезаписи
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void patchEntity(AddressDto addressDto, @MappingTarget Address address);
 
     List<AddressDto> toDtoList(List<Address> addressList);
 

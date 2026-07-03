@@ -6,6 +6,7 @@ import org.m3mpm.storeservice.mapper.config.CentralMapperConfig;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 
 import java.util.List;
 
@@ -15,6 +16,12 @@ public interface ProductMapper {
     @Mapping(target = "supplierId", source = "supplier.id")
     @Mapping(target = "imageId", source = "image.id")
     ProductDto toDto(Product product);
+
+    // ДОБАВИЛ ЭТОТ МЕТОД: он маппит продукт, но игнорирует поставщика
+    @Named("withoutSupplier") // Даем методу уникальное имя (идентификатор)
+    @Mapping(target = "supplierId", ignore = true) // Явно говорим не трогать поставщика
+    @Mapping(target = "imageId", source = "image.id")
+    ProductDto toDtoWithoutSupplier(Product product);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "supplier", ignore = true)
