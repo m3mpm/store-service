@@ -98,7 +98,7 @@ public class SupplierMapperTests {
         assertThat(dto.id()).isEqualTo(supplierId);
         assertThat(dto.name()).isEqualTo("ООО Ромашка");
         assertThat(dto.phoneNumber()).isEqualTo(supplier.getPhoneNumber());
-        assertThat(dto.address().getId()).isEqualTo(addressId);
+        assertThat(dto.address().id()).isEqualTo(addressId);
         assertThat(dto.products().size()).isEqualTo(2);
     }
 
@@ -109,10 +109,12 @@ public class SupplierMapperTests {
         UUID supplierId = UuidCreator.getTimeOrderedEpoch();
         UUID addressId = UuidCreator.getTimeOrderedEpoch();
 
-        AddressDto addressDto = new AddressDto().
-                setId(addressId).
-                setCountry("Russia").setCity("SPb").
-                setStreet("Nevsky");
+        AddressDto addressDto = AddressDto.builder()
+                .id(addressId)
+                .country("Russia")
+                .city("SPb")
+                .street("Nevsky")
+                .build();
 
         ProductDto productDto = ProductDto.builder()
                 .id(UuidCreator.getTimeOrderedEpoch())
@@ -201,10 +203,12 @@ public class SupplierMapperTests {
         // 2. создание нового Supplier
         UUID newAddressId = UuidCreator.getTimeOrderedEpoch();
 
-        AddressDto addressDto = new AddressDto().
-                setId(newAddressId).
-                setCountry("Russia").setCity("SPb").
-                setStreet("Nevsky");
+        AddressDto addressDto = AddressDto.builder()
+                .id(newAddressId)
+                .country("Russia")
+                .city("SPb")
+                .street("Nevsky")
+                .build();
 
         ProductDto productDto = ProductDto.builder()
                 .id(UuidCreator.getTimeOrderedEpoch())

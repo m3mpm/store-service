@@ -41,3 +41,7 @@ NOTES
 
 ### env ###
 .env
+
+#other
+collect_code*
+all_code*

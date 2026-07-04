@@ -88,6 +88,9 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+    // Разрешаем динамическую загрузку агента Mockito для Java 21+
+    // для тестов ClientMapperTests
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
 
 tasks.withType<JavaCompile> {

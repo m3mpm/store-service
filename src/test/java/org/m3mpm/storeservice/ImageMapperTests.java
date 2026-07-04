@@ -29,8 +29,8 @@ public class ImageMapperTests {
         ImageDto resultDto = mapper.toDto(image);
 
         assertThat(resultDto).isNotNull();
-        assertThat(resultDto.getId()).isEqualTo(randomId);
-        assertThat(resultDto.getImage()).isEqualTo(imageData);
+        assertThat(resultDto.id()).isEqualTo(randomId);
+        assertThat(resultDto.image()).isEqualTo(imageData);
     }
 
     @Test
@@ -38,9 +38,10 @@ public class ImageMapperTests {
     void shouldMapDtoToEntityAndIgnoreId() {
         UUID dtoId = UuidCreator.getTimeOrderedEpoch(); // UUID v7
         byte[] imageData = {10, 20, 30};
-        ImageDto dto = new ImageDto()
-                .setId(dtoId)
-                .setImage(imageData);
+        ImageDto dto = ImageDto.builder()
+                .id(dtoId)
+                .image(imageData)
+                .build();
 
         Image resultEntity = mapper.toEntity(dto);
 
@@ -60,9 +61,10 @@ public class ImageMapperTests {
                 .setId(originalId)
                 .setImage(oldData);
 
-        ImageDto incomingDto = new ImageDto()
-                .setId(UuidCreator.getTimeOrderedEpoch())
-                .setImage(newData);
+        ImageDto incomingDto = ImageDto.builder()
+                .id(UuidCreator.getTimeOrderedEpoch())
+                .image(newData)
+                .build();
 
         mapper.updateEntity(incomingDto, existingEntity);
 

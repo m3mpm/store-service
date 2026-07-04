@@ -64,7 +64,7 @@ public class ClientMapperTests {
 
         // Проверка работы AddressMapper внутри ClientMapper
         assertThat(dto.address()).isNotNull();
-        assertThat(dto.address().getCity()).isEqualTo("Moscow");
+        assertThat(dto.address().city()).isEqualTo("Moscow");
     }
 
     @Test
@@ -116,11 +116,12 @@ public class ClientMapperTests {
 
 
         UUID updateAddressId = UuidCreator.getTimeOrderedEpoch();
-        AddressDto addressDto = new AddressDto()
-                .setId(updateAddressId)
-                .setCountry("Russia")
-                .setCity("Moscow")
-                .setStreet("Varvarka");
+        AddressDto addressDto = AddressDto.builder()
+                .id(updateAddressId)
+                .country("Russia")
+                .city("Moscow")
+                .street("Varvarka")
+                .build();
 
         ClientDto updateDto = new ClientDto(
                 UuidCreator.getTimeOrderedEpoch(),
@@ -147,9 +148,9 @@ public class ClientMapperTests {
         assertThat(existingClient.getAddress().getId()).isEqualTo(originalAddressId);
 
         // Другие поля Address обновились
-        assertThat(existingClient.getAddress().getCountry()).isEqualTo(addressDto.getCountry());
-        assertThat(existingClient.getAddress().getCity()).isEqualTo(addressDto.getCity());
-        assertThat(existingClient.getAddress().getStreet()).isEqualTo(addressDto.getStreet());
+        assertThat(existingClient.getAddress().getCountry()).isEqualTo(addressDto.country());
+        assertThat(existingClient.getAddress().getCity()).isEqualTo(addressDto.city());
+        assertThat(existingClient.getAddress().getStreet()).isEqualTo(addressDto.street());
 
     }
 }

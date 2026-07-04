@@ -1,20 +1,18 @@
 package org.m3mpm.storeservice.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
+import lombok.Builder;
 
 import java.util.UUID;
 
 
-@NoArgsConstructor
-@Setter @Getter
-@ToString
-@Accessors(chain = true)
-public class ImageDto {
-
-    private UUID id;
-    private byte[] image;
+@Builder(toBuilder = true)
+public record ImageDto(
+        UUID id,
+        byte[] image
+) {
+    // Вручную скрываем бинарные данные из логов
+    @Override
+    public String toString() {
+        return "ImageDto[id=" + id + ", image=(binary data hidden)]";
+    }
 }
