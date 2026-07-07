@@ -3,7 +3,9 @@ package org.m3mpm.storeservice;
 import com.github.f4b6a3.uuid.UuidCreator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.m3mpm.storeservice.dto.AddressDto;
+import org.m3mpm.storeservice.dto.AddressCreateDto;
+import org.m3mpm.storeservice.dto.AddressPutDto;
+import org.m3mpm.storeservice.dto.AddressResponseDto;
 import org.m3mpm.storeservice.entity.Address;
 import org.m3mpm.storeservice.mapper.AddressMapper;
 import org.mapstruct.factory.Mappers;
@@ -29,14 +31,14 @@ public class AddressMapperTests {
                 .setCity("Moscow")
                 .setStreet("Lenina");
 
-        AddressDto dto = mapper.toDto(entity);
+        AddressResponseDto addressResponseDto = mapper.toDto(entity);
 
-        assertThat(dto).isNotNull();
+        assertThat(addressResponseDto).isNotNull();
         // ИСПРАВЛЕНО: замена геттеров getX() на синтаксис record x()
-        assertThat(dto.id()).isEqualTo(entity.getId());
-        assertThat(dto.country()).isEqualTo(entity.getCountry());
-        assertThat(dto.city()).isEqualTo(entity.getCity());
-        assertThat(dto.street()).isEqualTo(entity.getStreet());
+        assertThat(addressResponseDto.id()).isEqualTo(entity.getId());
+        assertThat(addressResponseDto.country()).isEqualTo(entity.getCountry());
+        assertThat(addressResponseDto.city()).isEqualTo(entity.getCity());
+        assertThat(addressResponseDto.street()).isEqualTo(entity.getStreet());
     }
 
     @Test
@@ -44,20 +46,19 @@ public class AddressMapperTests {
     void shouldMapDtoToEntityAndIgnoreId(){
         UUID addressId = UuidCreator.getTimeOrderedEpoch(); // UUID v7
         // ИСПРАВЛЕНО: создание объекта через Builder вместо сеттеров
-        AddressDto dto = AddressDto.builder()
-                .id(addressId)
+        AddressCreateDto addressCreateDTO = AddressCreateDto.builder()
                 .country("Russia")
                 .city("SPb")
                 .street("Nevsky")
                 .build();
 
-        Address entity = mapper.toEntity(dto);
+        Address entity = mapper.toEntity(addressCreateDTO);
 
         assertThat(entity).isNotNull();
         assertThat(entity.getId()).isNull();
-        assertThat(entity.getCountry()).isEqualTo(dto.country());
-        assertThat(entity.getCity()).isEqualTo(dto.city());
-        assertThat(entity.getStreet()).isEqualTo(dto.street());
+        assertThat(entity.getCountry()).isEqualTo(addressCreateDTO.country());
+        assertThat(entity.getCity()).isEqualTo(addressCreateDTO.city());
+        assertThat(entity.getStreet()).isEqualTo(addressCreateDTO.street());
     }
 
     @Test
@@ -71,14 +72,13 @@ public class AddressMapperTests {
                 .setStreet("Old Street");
 
         // ИСПРАВЛЕНО: создание объекта через Builder вместо сеттеров
-        AddressDto dto = AddressDto.builder()
-                .id(null)
+        AddressPutDto addressPutDto = AddressPutDto.builder()
                 .country("New Country")
                 .city("New City")
                 .street("New Street")
                 .build();
 
-        mapper.updateEntity(dto, entity);
+        mapper.updateEntity(addressPutDto, entity);
 
         assertThat(entity.getId()).isEqualTo(originalId);
         assertThat(entity.getCountry()).isEqualTo("New Country");
@@ -93,7 +93,7 @@ public class AddressMapperTests {
         Address address2 = new Address().setCity("City 2");
         List<Address> list = List.of(address1, address2);
 
-        List<AddressDto> dtoList = mapper.toDtoList(list);
+        List<AddressResponseDto> dtoList = mapper.toDtoList(list);
 
         assertThat(dtoList.size()).isEqualTo(list.size());
         // ИСПРАВЛЕНО: замена геттеров getCity() на синтаксис record city()
@@ -101,18 +101,4 @@ public class AddressMapperTests {
         assertThat(dtoList.get(1).city()).isEqualTo("City 2");
     }
 
-    @Test
-    @DisplayName("Маппинг DTO списка в Entity список: размеры и содержимое должны совпадать")
-    void shouldMapToEntityList(){
-        // ИСПРАВЛЕНО: создание объектов через Builder вместо сеттеров
-        AddressDto dto1 = AddressDto.builder().city("City 1").build();
-        AddressDto dto2 = AddressDto.builder().city("City 2").build();
-        List<AddressDto> list = List.of(dto1, dto2);
-
-        List<Address> entityList = mapper.toEntityList(list);
-
-        assertThat(entityList.size()).isEqualTo(list.size());
-        assertThat(entityList.get(0).getCity()).isEqualTo("City 1");
-        assertThat(entityList.get(1).getCity()).isEqualTo("City 2");
-    }
 }

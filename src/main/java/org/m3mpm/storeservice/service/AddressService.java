@@ -1,21 +1,21 @@
 package org.m3mpm.storeservice.service;
 
-import org.m3mpm.storeservice.dto.AddressDto;
+import org.m3mpm.storeservice.dto.*;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AddressService {
 
-    AddressDto create(AddressDto addressDto);
+    AddressResponseDto create(AddressCreateDto addressCreateDTO);
 
-    List<AddressDto> findAll();
+    List<AddressResponseDto> findAll();
 
-    AddressDto findById(UUID id);
+    AddressResponseDto findById(UUID id);
 
-    AddressDto update(UUID id, AddressDto addressDto);
+    AddressResponseDto update(UUID id, AddressPutDto addressPutDto);
 
-    AddressDto patch(UUID id, AddressDto addressDto);
+    AddressResponseDto patch(UUID id, AddressPatchDto addressPatchDto);
 
     void delete(UUID id);
 

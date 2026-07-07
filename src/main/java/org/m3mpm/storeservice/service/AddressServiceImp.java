@@ -1,8 +1,7 @@
 package org.m3mpm.storeservice.service;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.m3mpm.storeservice.dto.AddressDto;
+import org.m3mpm.storeservice.dto.*;
 import org.m3mpm.storeservice.entity.Address;
 import org.m3mpm.storeservice.exception.EntityNotFoundException;
 import org.m3mpm.storeservice.mapper.AddressMapper;
@@ -22,8 +21,8 @@ public class AddressServiceImp implements AddressService{
 
     @Override
     @Transactional
-    public AddressDto create(AddressDto addressDto) {
-        Address address = mapper.toEntity(addressDto);
+    public AddressResponseDto create(AddressCreateDto addressCreateDTO) {
+        Address address = mapper.toEntity(addressCreateDTO);
 
         Address savedAddress = repository.save(address);
 
@@ -32,7 +31,7 @@ public class AddressServiceImp implements AddressService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<AddressDto> findAll() {
+    public List<AddressResponseDto> findAll() {
         List<Address> list = repository.findAll();
 
         return mapper.toDtoList(list);
@@ -40,7 +39,7 @@ public class AddressServiceImp implements AddressService{
 
     @Override
     @Transactional(readOnly = true)
-    public AddressDto findById(UUID id) {
+    public AddressResponseDto findById(UUID id) {
         return repository.findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("Get: Address not found with id - " + id));
@@ -49,22 +48,22 @@ public class AddressServiceImp implements AddressService{
 
     @Override
     @Transactional
-    public AddressDto update(UUID id, AddressDto addressDto) {
+    public AddressResponseDto update(UUID id, AddressPutDto addressPutDto) {
         Address address = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Update: Address not found with id - " + id));
 
-        mapper.updateEntity(addressDto, address);
+        mapper.updateEntity(addressPutDto, address);
 
         return mapper.toDto(address);
     }
 
     @Override
     @Transactional
-    public AddressDto patch(UUID id, AddressDto addressDto) {
+    public AddressResponseDto patch(UUID id, AddressPatchDto addressPatchDto) {
         Address address = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Patch: Address not found with id - " + id));
 
-        mapper.patchEntity(addressDto, address);
+        mapper.patchEntity(addressPatchDto, address);
 
         return mapper.toDto(address);
     }

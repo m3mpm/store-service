@@ -1,6 +1,6 @@
 package org.m3mpm.storeservice.mapper;
 
-import org.m3mpm.storeservice.dto.AddressDto;
+import org.m3mpm.storeservice.dto.*;
 import org.m3mpm.storeservice.entity.Address;
 import org.m3mpm.storeservice.mapper.config.CentralMapperConfig;
 import org.mapstruct.*;
@@ -10,24 +10,24 @@ import java.util.List;
 @Mapper(config = CentralMapperConfig.class)
 public interface AddressMapper {
 
-    AddressDto toDto(Address address);
+    // 1. Из Entity в DTO для ответа клиенту (GET, POST, PUT, PATCH)
+    AddressResponseDto toDto(Address address);
 
+    // 2. Из DTO создания в новую Entity (POST)
     @Mapping(target = "id", ignore = true)
-    Address toEntity(AddressDto addressDto);
+    Address toEntity(AddressCreateDto createDto);
 
-    // Используется для PUT (полное обновление: null затрет старое значение)
-    @Named("standardUpdate")
+    // 3. Для PUT (полное обновление: null затрет старое значение)
     @Mapping(target = "id", ignore = true) // Защищаем ID от перезаписи
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
-    void updateEntity(AddressDto addressDto, @MappingTarget Address address);
+    void updateEntity(AddressPutDto updateDto, @MappingTarget Address address);
 
-    // Используется для PATCH (частичное обновление: null игнорируется)
-    @Named("standardPatch")
+    // 4. Для PATCH (частичное обновление: null игнорируется)
     @Mapping(target = "id", ignore = true) // Защищаем ID от перезаписи
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void patchEntity(AddressDto addressDto, @MappingTarget Address address);
+    void patchEntity(AddressPatchDto patchDto, @MappingTarget Address address);
 
-    List<AddressDto> toDtoList(List<Address> addressList);
+    // 5. Маппинг списков (для GET /api/v1/addresses)
+    List<AddressResponseDto> toDtoList(List<Address> addressList);
 
-    List<Address> toEntityList(List<AddressDto> addressDtoList);
 }
