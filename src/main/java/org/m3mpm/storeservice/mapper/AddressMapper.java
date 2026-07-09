@@ -17,17 +17,20 @@ public interface AddressMapper {
     @Mapping(target = "id", ignore = true)
     Address toEntity(AddressCreateDto createDto);
 
-    // 3. Для PUT (полное обновление: null затрет старое значение)
+    // 3. Для добавления Address в объектах Client & Supplier после поиска адрсса по id: AddressResponseDto findById(UUID id)
+    Address toEntity(AddressResponseDto responseDto);
+
+    // 4. Для PUT (полное обновление: null затрет старое значение)
     @Mapping(target = "id", ignore = true) // Защищаем ID от перезаписи
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
     void updateEntity(AddressPutDto updateDto, @MappingTarget Address address);
 
-    // 4. Для PATCH (частичное обновление: null игнорируется)
+    // 5. Для PATCH (частичное обновление: null игнорируется)
     @Mapping(target = "id", ignore = true) // Защищаем ID от перезаписи
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void patchEntity(AddressPatchDto patchDto, @MappingTarget Address address);
 
-    // 5. Маппинг списков (для GET /api/v1/addresses)
+    // 6. Маппинг списков (для GET /api/v1/addresses)
     List<AddressResponseDto> toDtoList(List<Address> addressList);
 
 }
