@@ -29,6 +29,7 @@ public interface ClientMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "registrationDate", ignore = true)
     @Mapping(target = "address", ignore = true) // Игнорируем вложенный объект Address, свяжем его вручную в сервисе
+    @Mapping(target = "gender", source = "gender", qualifiedByName = "stringToGender")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
     void updateEntity(ClientPutDto updateDto, @MappingTarget Client client);
 
@@ -36,6 +37,7 @@ public interface ClientMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "registrationDate", ignore = true)
     @Mapping(target = "address", ignore = true) // Игнорируем вложенный объект Address, свяжем его вручную в сервисе
+    @Mapping(target = "gender", source = "gender", qualifiedByName = "stringToGender")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void patchEntity(ClientPatchDto patchDto, @MappingTarget Client client);
 

@@ -43,7 +43,7 @@ public class Client {
     @Column(name = "registration_date", updatable = false, nullable = false)
     private LocalDateTime registrationDate;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 

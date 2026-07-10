@@ -76,7 +76,7 @@ databaseChangeLog:
                   type: UUID
                   constraints:
                     nullable: true
-                    unique: true # ГАРАНТИРУЕТ One-to-One: Чтобы один адрес не достался двум клиентам
+#                    unique: true # ГАРАНТИРУЕТ One-to-One: Чтобы один адрес не достался двум клиентам
                     foreignKeyName: fk_client_address
                     referencedTableName: addresses
                     referencedColumnNames: id
